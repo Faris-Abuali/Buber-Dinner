@@ -1,4 +1,4 @@
-# Buber-Dinner
+# Buber Dinner
 REST API following CLEAN ARCHITECTURE &amp; DDD Tutorial
 
 
