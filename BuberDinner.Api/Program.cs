@@ -1,5 +1,5 @@
 using BuberDinner.Api.Errors;
-using BuberDinner.Api.Filters;
+// using BuberDinner.Api.Filters;
 using BuberDinner.Application;
 using BuberDinner.Infrastructure;
 using Microsoft.AspNetCore.Diagnostics;
@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
     
     builder.Services.AddControllers();
 
-    // builder.Services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
+    builder.Services.AddSingleton<ProblemDetailsFactory, BuberDinnerProblemDetailsFactory>();
 }
 
 // // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
