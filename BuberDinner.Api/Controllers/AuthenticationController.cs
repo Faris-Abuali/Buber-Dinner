@@ -1,29 +1,33 @@
-﻿using BuberDinner.Application.Services.Authentication;
+﻿using BuberDinner.Application.Authentication.Commands.Register;
+using BuberDinner.Application.Authentication.Common;
+using BuberDinner.Application.Authentication.Queries.Login;
 using BuberDinner.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using BuberDinner.Domain.Common.Errors;
+using MediatR;
 
 namespace BuberDinner.Api.Controllers;
 
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
-
-    public AuthenticationController(IAuthenticationService authenticationService)
+    private readonly ISender _mediator;
+    
+    public AuthenticationController(ISender mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost("register")]
-    public IActionResult Register(RegisterRequest request)
+    public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var authResult = _authenticationService.Register(
+        var command = new RegisterCommand(
             request.FirstName,
             request.LastName,
             request.Email,
             request.Password);
 
+        var authResult = await _mediator.Send(command);
+        
         return authResult.Match(
             result => Ok(MapAuthResult(result)),
             errors => Problem(errors)
@@ -31,10 +35,12 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("login")]
-    public IActionResult Login(LoginRequest request)
+    public async Task<IActionResult> Login(LoginRequest request)
     {
-        var authResult = _authenticationService.Login(request.Email, request.Password);
-
+        var query = new LoginQuery(request.Email, request.Password);
+        
+        var authResult = await _mediator.Send(query);
+        
         if (authResult.IsError &&
             authResult.FirstError == Domain.Common.Errors.Errors.Authentication.InvalidCredentials)
         {
