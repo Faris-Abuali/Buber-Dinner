@@ -20,6 +20,8 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, ErrorOr<Authenticat
 
     public async Task<ErrorOr<AuthenticationResult>> Handle(LoginQuery query, CancellationToken cancellationToken)
     {
+        await Task.CompletedTask; // This is just to make the compiler happy :)
+        
         var user = _userRepository.GetUserByEmail(query.Email);
         
         // 1. Validate the user exists
