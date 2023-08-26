@@ -12,13 +12,20 @@ public class ApiController : ControllerBase
     {
         if (errors.Count is 0)
         {
-            return Problem();
+            return Problem(); // No errors, return a generic problem
         }
         
+        // If all errors are validation errors, return a validation problem which will return a 400 status code and a list of validation errors
         if (errors.All(error => error.Type == ErrorType.Validation))
         {
             return ValidationProblem(errors);
         }
+        
+        // if (errors.All(error => error.NumericType == 23))
+        // {
+        //     // Let's say you want to define a specific type of error whose code is 23
+        //     // Here you can write your custom logic for a specific error type
+        // }
         
         // `HttpContext.Items` Gets or sets a key/value collection that can be used to share data within the scope of this request.
         HttpContext.Items.Add(HttpContextItemKeys.Errors, errors);
@@ -55,7 +62,7 @@ public class ApiController : ControllerBase
 
         errors.ForEach(error => modelStateDictionary.AddModelError(
             error.Code,
-            error.Description));
+                error.Description));
 
         return ValidationProblem(modelStateDictionary);
     }

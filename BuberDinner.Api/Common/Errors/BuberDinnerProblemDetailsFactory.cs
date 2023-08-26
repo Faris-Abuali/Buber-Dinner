@@ -95,6 +95,7 @@ public class BuberDinnerProblemDetailsFactory : ProblemDetailsFactory
         }
 
         // ----- My custom code -----
+        // Remember that we added the HttpContextItemKeys.Errors to the `HttpContext.Items` dictionary in the ApiController
         var errors = httpContext?.Items[HttpContextItemKeys.Errors] as List<Error>;
 
         if (errors is not null)

@@ -1,6 +1,4 @@
-﻿// using BuberDinner.Application.Authentication.Common;
-
-using BuberDinner.Application.Authentication.Common;
+﻿using BuberDinner.Application.Authentication.Common;
 using MediatR;
 using ErrorOr;
 
