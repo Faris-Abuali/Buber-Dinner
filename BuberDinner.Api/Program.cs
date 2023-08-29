@@ -29,7 +29,6 @@ var app = builder.Build();
 //     app.UseSwaggerUI();
 // }
 
-
 {
     // -- Request Pipeline - Middleware
     // app.UseMiddleware<ErrorHandlingMiddleware>();
@@ -54,7 +53,9 @@ var app = builder.Build();
     // });
     app.UseHttpsRedirection();
 
-    // app.UseAuthorization();
+    app.UseAuthentication(); // Episode #9
+    
+    app.UseAuthorization();
 
     app.MapControllers();
 

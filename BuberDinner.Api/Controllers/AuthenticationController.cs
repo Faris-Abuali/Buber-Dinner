@@ -5,10 +5,12 @@ using BuberDinner.Contracts.Authentication;
 using MapsterMapper;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BuberDinner.Api.Controllers;
 
 [Route("auth")]
+[AllowAnonymous] // Specifies that the class or method that this attribute is applied to does not require authorization.
 public class AuthenticationController : ApiController
 {
     private readonly ISender _mediator;
