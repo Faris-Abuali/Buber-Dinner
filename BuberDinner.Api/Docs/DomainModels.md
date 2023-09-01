@@ -1,4 +1,4 @@
-﻿# Domain ModelsI
+﻿# Domain Models
 ## User
 
 ```json
