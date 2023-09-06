@@ -4,11 +4,16 @@ namespace BuberDinner.Domain.Host.ValueObjects;
 
 public class HostId : ValueObject
 {
-    public Guid Id { get; }
+    public Guid Value { get; }
     
     private HostId(Guid id)
     {
-        Id = id;
+        Value = id;
+    }
+    
+    public static HostId Create(Guid id)
+    {
+        return new (id);
     }
     
     public static HostId CreateUnique()
@@ -18,6 +23,16 @@ public class HostId : ValueObject
     
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Id;
+        yield return Value;
+    }
+    
+    public static implicit operator Guid(HostId hostId)
+    {
+        return hostId.Value;
+    }
+    
+    public static implicit operator HostId(Guid hostId)
+    {
+        return new (hostId);
     }
 }

@@ -4,11 +4,11 @@ namespace BuberDinner.Domain.MenuReview.ValueObjects;
 
 public class MenuReviewId : ValueObject
 {
-    public Guid Id { get; }
+    public Guid Value { get; }
     
     private MenuReviewId(Guid id)
     {
-        Id = id;
+        Value = id;
     }
     
     public static MenuReviewId CreateUnique()
@@ -18,6 +18,6 @@ public class MenuReviewId : ValueObject
     
     public override IEnumerable<object> GetEqualityComponents()
     {
-        yield return Id;
+        yield return Value;
     }
 }

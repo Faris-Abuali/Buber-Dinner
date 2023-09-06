@@ -9,7 +9,7 @@
 ### Register
 
 ```js
-POST {(host))/auth/register
+POST (host)/auth/register
 ```
 
 #### Register Request

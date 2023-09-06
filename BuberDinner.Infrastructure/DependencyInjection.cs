@@ -19,10 +19,22 @@ public static class DependencyInjection
         this IServiceCollection services,
         ConfigurationManager configuration)
     {
-        services.AddAuth(configuration); // Call our extension method to handle the Authentication services
+        // Call our extension method to handle the Authentication services
+        services
+            .AddAuth(configuration)
+            .AddPersistence();
         
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        
+        return services;
+    }
+
+    private static IServiceCollection AddPersistence(
+        this IServiceCollection services)
+    {
+        
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
         
         return services;
     }
@@ -30,7 +42,7 @@ public static class DependencyInjection
     // This is our extension method for adding the Authentication services
     private static IServiceCollection AddAuth(
         this IServiceCollection services,
-        ConfigurationManager configuration)
+        IConfiguration configuration)
     {
         var jwtSettings = new JwtSettings();
         // 👇 this will bind the JwtSettings section of our appsettings.json file to our JwtSettings class

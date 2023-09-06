@@ -11,14 +11,14 @@ namespace BuberDinner.Domain.Menu;
 public sealed class Menu : AggregateRoot<MenuId>
 {
     private readonly List<MenuSection> _sections = new();
-    
+
     private readonly List<DinnerId> _dinnerIds = new();
-    
+
     private readonly List<MenuReviewId> _menuReviewIds = new();
 
     public string Name { get; }
     public string Description { get; }
-    
+
     public AverageRating AverageRating { get; }
 
     public IReadOnlyList<MenuSection> Sections => _sections.AsReadOnly();
@@ -30,40 +30,40 @@ public sealed class Menu : AggregateRoot<MenuId>
     public IReadOnlyList<MenuReviewId> MenuReviewIds => _menuReviewIds.AsReadOnly();
 
     public DateTime CreatedDateTime { get; }
-    
+
     public DateTime UpdatedDateTime { get; }
-    
+
     private Menu(
         MenuId menuId,
+        HostId hostId,
         string name,
         string description,
-        AverageRating averageRating,
-        HostId hostId,
-        DateTime createdDateTime,
-        DateTime updatedDateTime) 
+        // AverageRating averageRating,
+        List<MenuSection> sections)
         : base(menuId)
     {
         Name = name;
         Description = description;
-        AverageRating = averageRating;
+        AverageRating = AverageRating.CreateNew();
         HostId = hostId;
-        CreatedDateTime = createdDateTime;
-        UpdatedDateTime = updatedDateTime;
+        CreatedDateTime = DateTime.UtcNow;
+        UpdatedDateTime = DateTime.UtcNow;
+        _sections.AddRange(sections);
     }
-    
+
     public static Menu Create(
+        HostId hostId,
         string name,
         string description,
-        float averageRating,
-        HostId hostId)
+        // float averageRating,
+        List<MenuSection>? sections)
     {
         return new Menu(
-            MenuId.CreateUnique(),
+            menuId: MenuId.CreateUnique(),
+            hostId,
             name,
             description,
-            AverageRating.CreateNew(averageRating),
-            hostId,
-            DateTime.UtcNow,
-            DateTime.UtcNow);
+            // averageRating: AverageRating.CreateNew(averageRating),
+            sections: sections ?? new());
     }
 }

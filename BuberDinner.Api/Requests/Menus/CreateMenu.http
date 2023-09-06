@@ -1,0 +1,24 @@
+﻿POST {{host}}/hosts/{{hostId}}/menus
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Yummy Menu",
+  "description": "A menu with yummy food",
+  "sections": [
+    {
+      "name": "Appetizers",
+      "description": "Starters",
+      "items": [
+        {
+          "name": "Hummus",
+          "description": "A delicious chickpea dip"
+        },
+        {
+          "name": "Falafel",
+          "description": "A delicious chickpea ball"
+        }
+      ]
+    }
+  ]
+}
