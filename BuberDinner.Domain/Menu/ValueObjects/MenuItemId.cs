@@ -13,11 +13,20 @@ public class MenuItemId : ValueObject
 
     public static MenuItemId CreateUnique()
     {
-        return new MenuItemId(Guid.NewGuid());
+        return new (Guid.NewGuid());
+    }
+    
+    public static MenuItemId Create(Guid id)
+    {
+        return new (id);
     }
 
     public override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;
     }
+    
+    #pragma warning disable CS8618
+        private MenuItemId() { } // Required for EF Core
+    #pragma warning restore CS8618
 }

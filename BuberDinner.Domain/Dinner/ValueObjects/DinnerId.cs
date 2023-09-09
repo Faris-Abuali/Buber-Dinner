@@ -20,4 +20,8 @@ public class DinnerId : ValueObject
     {
         yield return Value;
     }
+    
+    #pragma warning disable CS8618
+        private DinnerId() { } // Required for EF Core
+    #pragma warning restore CS8618
 }

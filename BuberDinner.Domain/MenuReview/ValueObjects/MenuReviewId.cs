@@ -20,4 +20,11 @@ public class MenuReviewId : ValueObject
     {
         yield return Value;
     }
+    
+    #pragma warning disable CS8618
+    private MenuReviewId()
+    {
+        // For EF Core
+    }
+    #pragma warning restore CS8618
 }

@@ -18,9 +18,9 @@ public sealed class MenuSection : Entity<MenuSectionId>
         _items.AddRange(items);
     }
 
-    public string Name { get; }
+    public string Name { get; private set; }
 
-    public string Description { get; }
+    public string Description { get; private set; }
 
     public IReadOnlyList<MenuItem> Items => _items.AsReadOnly();
 
@@ -32,4 +32,8 @@ public sealed class MenuSection : Entity<MenuSectionId>
             description,
             items ?? new());
     }
+    
+    #pragma warning disable CS8618
+        private MenuSection() { } // Required for EF Core
+    #pragma warning restore CS8618
 }

@@ -35,4 +35,8 @@ public class HostId : ValueObject
     {
         return new (hostId);
     }
+    
+    #pragma warning disable CS8618
+        private HostId() { } // Required for EF Core
+    #pragma warning restore CS8618
 }
